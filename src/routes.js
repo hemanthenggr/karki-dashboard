@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
-const Users = React.lazy(() => import('./views/dashboard/components/Users'))
-const Drivers = React.lazy(() => import('./views/dashboard/components/Drivers'))
+const Dashboard = React.lazy(() => import('./views/dashboard/dashboard'))
+const Users = React.lazy(() => import('./views/dashboard/users'))
+const Drivers = React.lazy(() => import('./views/dashboard/drivers'))
 
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
