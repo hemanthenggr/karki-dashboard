@@ -35,13 +35,21 @@ const _nav = [
     icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
     badge: {
       color: 'info',
-      text: 'NEW',
     }
   },
   {
     component: CNavItem,
     name: 'Drivers',
     to: '/dashboard/drivers',
+    icon: <CIcon icon={cilCarAlt} customClassName="nav-icon" />,
+    badge: {
+      color: 'info',
+    }
+  },
+  {
+    component: CNavItem,
+    name: 'Vehicles',
+    to: '/dashboard/vehicles',
     icon: <CIcon icon={cilCarAlt} customClassName="nav-icon" />,
     badge: {
       color: 'info',

@@ -17,8 +17,7 @@ import {
   CTableDataCell,
   CTableHead,
   CTableHeaderCell,
-  CTableRow,
-  CAlert
+  CTableRow
 } from '@coreui/react'
 import { CChartLine } from '@coreui/react-chartjs'
 import { getStyle, hexToRgba } from '@coreui/utils'
@@ -62,7 +61,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (state) {
-      // navigate('/login')      
+      // navigate('/login')
     }
   }, [])
 
@@ -466,7 +465,7 @@ const Dashboard = () => {
           </CCard>
         </CCol>
       </CRow>
-      
+
     </>
   )
 }

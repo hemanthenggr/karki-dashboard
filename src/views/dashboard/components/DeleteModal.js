@@ -1,7 +1,6 @@
 import { CModal, CModalHeader, CModalBody, CModalTitle, CModalFooter, CButton } from '@coreui/react'
 
 const DeleteModal = ({ visible, setVisible, handleDelete }) => {
-  console.log("visible", visible);
   return (
     <CModal visible={visible} onClose={() => setVisible(false)}>
       <CModalHeader>

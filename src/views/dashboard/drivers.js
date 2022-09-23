@@ -13,28 +13,28 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import Modal from './components/Modal'
 import AddDriver from './components/AddDriverForm'
 import DriverList from "./components/DriverList"
+import AddButton from './components/AddButton'
 
-const Users = () => {
+const Drivers = () => {
 
   const [drivers, setDrivers] = useState([])
   const [tableData, setTableData] = useState([])
   const [visible, setVisible] = useState(false)
   const [validated, setValidated] = useState(false)
   const [profileImage, setProfileImage] = useState({})
-  const [formType, setFormType] = useState("add")
   const [title, setTitle] = useState("New Driver")
-  const [formData, setFormData] = useState({
-    first_name: "Hemanth",
-    last_name: "kumar",
-    email: "hemanth@gmail.com",
+  const initFormData = {
+    first_name: "",
+    last_name: "",
+    email: "",
     dob: "",
     gender: "Male",
-    mobile: "98766532333",
+    mobile: "",
     profile_picture: "",
-    area: "no area",
+    area: "",
     is_online: "0",
     is_vehicle_updated: false,
-    location: "no update",
+    location: "",
     location_lat: 1,
     location_long: 1,
     pincode: "0",
@@ -46,17 +46,9 @@ const Users = () => {
     updated_by: "ADMIN",
     updated_date: moment().format("DD-MM-YYYY"),
     updated_time: moment(moment().format('LTS'), ["h:mm A"]).format("HH:mm"),
-    device_token: "",
-    // vehicle_type: "auto",
-    // fuel_type: "petrol",
-    // vehicle_number: "",
-    // vehicle_brand: "",
-    // vehicle_model: "",
-    // vehicle_color: "",
-    // vehicle_seats: "",
-    // manufacture_year: "",
-    // file_url: ""
-  })
+    device_token: ""
+  }
+  const [formData, setFormData] = useState(initFormData)
 
   useEffect(() => {
     initData()
@@ -68,6 +60,10 @@ const Users = () => {
     setDrivers(resDriver)
 
     if (resDriver !== null) setTableData(buildTableData(resDriver))
+  }
+
+  const resetForm = () => {
+    setFormData(initFormData)
   }
 
   const getExtension = (name) => {
@@ -135,37 +131,20 @@ const Users = () => {
       const form = document.getElementById('driver-form')
       if (form.checkValidity() === false) return false
 
-      if (formType == 'add') {
-        const url = await uploadProfilePicture()
-        let requestData = formData
+      let requestData = formData
+      const url = await uploadProfilePicture()
 
-        if (url) {
-          requestData = { ...requestData, profile_image: url }
-          setFormData(requestData)
-        }
+      if (url) {
+        requestData = { ...requestData, profile_image: url }
+        setFormData(requestData)
+      }
 
-        let res = await addDriver(requestData)
-        if (res) {
-          setVisible(false)
-          showToast('Driver Added Successfully')
+      let res = requestData.id ? await addDriver(requestData) : await updateDriver(requestData.id, requestData)
+      if (res) {
+        setVisible(false)
+        showToast(requestData.id ? 'Driver Updated Successfully' : 'Driver Added Successfully')
 
-          initData()
-        }
-      } else if (formType == 'update') {
-        const url = await uploadProfilePicture()
-        let requestData = formData
-
-        if (url) {
-          requestData = { ...requestData, profile_image: url }
-          setFormData(requestData)
-        }
-        let res = await updateDriver(requestData.id, requestData)
-        if (res) {
-          setVisible(false)
-          showToast('Driver Updated Successfully')
-
-          initData()
-        }
+        initData()
       }
     } catch (error) {
       console.log("error", error)
@@ -174,7 +153,6 @@ const Users = () => {
 
   const handleEdit = (id) => {
     setVisible(true)
-    setFormType('update')
     setTitle('Update Driver')
 
     let editData = drivers.filter(driver => driver.id == id)[0]
@@ -183,13 +161,12 @@ const Users = () => {
 
   const handleForm = () => {
     setVisible(true)
-    setFormType('add')
     setTitle('New Driver')
+    resetForm()
   }
 
   const handleDelete = async (id) => {
     let res = await deleteDriver(id)
-
     if (res) showToast('Driver Deleted Successfully')
 
     initData()
@@ -204,14 +181,13 @@ const Users = () => {
               <CRow className='justify-content-between'>
                 <CCol xs={6}>Drivers List</CCol>
                 <CCol xs={6} className="text-end">
+                  <AddButton formButtonTitle={'Add New Driver'} handleForm={handleForm} />
                   <Modal
-                    formType={formType}
                     title={title}
                     form={<AddDriver validated={validated} setFormData={setFormData} setProfileImage={setProfileImage} formData={formData} />}
                     handleSubmit={handleSubmit}
                     visible={visible}
                     setVisible={setVisible}
-                    handleForm={handleForm}
                   />
                 </CCol>
               </CRow>
@@ -227,4 +203,4 @@ const Users = () => {
   )
 }
 
-export default Users
+export default Drivers

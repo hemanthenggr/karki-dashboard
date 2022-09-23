@@ -1,8 +1,10 @@
 import React from 'react'
 
+// Dashboard
 const Dashboard = React.lazy(() => import('./views/dashboard/dashboard'))
 const Users = React.lazy(() => import('./views/dashboard/users'))
 const Drivers = React.lazy(() => import('./views/dashboard/drivers'))
+const Vehicles = React.lazy(() => import('./views/dashboard/vehicles'))
 
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
@@ -58,6 +60,7 @@ const routes = [
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/dashboard/users', name: 'Users', element: Users },
   { path: '/dashboard/drivers', name: 'Drivers', element: Drivers },
+  { path: '/dashboard/vehicles', name: 'Vehicles', element: Vehicles },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },
