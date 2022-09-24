@@ -54,7 +54,7 @@ const DriverList = ({ drivers, handleEdit, handleDelete }) => {
               <div>{item.mobile}</div>
             </CTableDataCell>
             <CTableDataCell>
-              <div>{item.is_subscribed ? 'Active' : 'Not Active'}</div>
+              <div>{item.is_subscribed ? 'Subscribed' : '-'}</div>
             </CTableDataCell>
             <CTableDataCell className="text-center">
               <CButtonGroup role="group" aria-label="Basic outlined example">

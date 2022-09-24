@@ -147,7 +147,7 @@ const Vehicles = () => {
                   <AddButton formButtonTitle={'Add New Vehicle'} handleForm={handleForm} />
                   <Modal
                     title={title}
-                    form={<AddVehicle validated={validated} setFormData={setFormData} setVehicleDocument={setVehicleDocument} formData={formData} drivers={drivers} />}
+                    form={drivers && <AddVehicle validated={validated} setFormData={setFormData} setVehicleDocument={setVehicleDocument} formData={formData} drivers={drivers} />}
                     handleSubmit={handleSubmit}
                     visible={visible}
                     setVisible={setVisible}

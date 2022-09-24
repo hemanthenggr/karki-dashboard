@@ -33,7 +33,7 @@ const Drivers = () => {
     profile_picture: "",
     area: "",
     is_online: "0",
-    is_vehicle_updated: false,
+    is_vehicle_updated: 'false',
     location: "",
     location_lat: 1,
     location_long: 1,
@@ -139,7 +139,7 @@ const Drivers = () => {
         setFormData(requestData)
       }
 
-      let res = requestData.id ? await addDriver(requestData) : await updateDriver(requestData.id, requestData)
+      let res = !requestData.id ? await addDriver(requestData) : await updateDriver(requestData.id, requestData)
       if (res) {
         setVisible(false)
         showToast(requestData.id ? 'Driver Updated Successfully' : 'Driver Added Successfully')

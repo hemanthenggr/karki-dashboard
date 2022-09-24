@@ -13,7 +13,7 @@ const AddDriver = ({ validated, setProfileImage, formData, setFormData }) => {
   }
 
   return (
-    <CForm id='vehicle-form' className="row g-3" noValidate validated={validated}>
+    <CForm id='driver-form' className="row g-3" noValidate validated={validated}>
       <CCol md={6}>
         <CFormInput type="text" label="First Name" name="first_name" required feedbackInvalid="Please enter a First Name." onChange={handleChange} value={formData.first_name} />
       </CCol>
@@ -35,6 +35,18 @@ const AddDriver = ({ validated, setProfileImage, formData, setFormData }) => {
       <CCol xs={6}>
         <label className='form-label'>Date of Birth</label>
         <DatePicker className='form-control' dateFormat="dd/MM/yyyy" name="dob" selected={startDate} onChange={(date) => { setStartDate(date); setFormData({ ...formData, dob: moment(date).format('DD-MM-YYYY') }) }} required feedbackInvalid="Invalid DOB." />
+      </CCol>
+      <CCol md={6}>
+        <CFormSelect name="status" label="Driver Status" onChange={handleChange} value={formData.status}>
+          <option value={'1'}>Active</option>
+          <option value={'2'}>In-Active</option>
+        </CFormSelect>
+      </CCol>
+      <CCol md={6}>
+        <CFormSelect name="is_vehicle_updated" label="Vehicle Status" onChange={handleChange} value={formData.is_vehicle_updated}>
+          <option value={'true'}>Updated</option>
+          <option value={'false'}>Not Updated</option>
+        </CFormSelect>
       </CCol>
       <CCol md={12}>
         <CFormInput type="file" label="Profile Picture" required={formData.profile_image ? false : true} feedbackInvalid="Please upload a Profile Picture." onChange={(e) => { setProfileImage(e.target.files[0]) }} />
